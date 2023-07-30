@@ -1,13 +1,14 @@
 import { Component } from "react";
 import { MenuItems } from "./menuitems";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./navbar.css";
 
 class Navbar extends Component {
-    state={clicked: false};
-    handleClick =() =>{
-        this.setState({clicked : ! this.state.clicked})
+    state = { clicked: false };
+    handleClick = () => {
+        this.setState({ clicked: !this.state.clicked })
     }
+
     render() {
         return (
 
@@ -22,7 +23,7 @@ class Navbar extends Component {
                         return (
                             <li key={index}>
                                 <Link className={item.cName} to={item.url}>
-                                    
+
                                     {item.title}
                                 </Link>
 
@@ -30,7 +31,10 @@ class Navbar extends Component {
 
                         );
                     })}
-                    <button>Sign Up</button>
+
+                    <Link to="/register">
+                        <button>Sign Up</button>
+                    </Link>
 
                 </ul>
 
