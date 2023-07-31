@@ -6,6 +6,8 @@ import About from "./routes/about";
 import Contact from "./routes/contact";
 import Service from "./routes/service";
 import Register from "./components/registrationform";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import PackageMain from './components/packagemain';
 
 function App() {
   return (
