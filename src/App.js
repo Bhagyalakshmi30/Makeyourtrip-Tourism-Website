@@ -5,9 +5,11 @@ import Home from "./routes/home";
 import About from "./routes/about";
 import Contact from "./routes/contact";
 import Service from "./routes/service";
-import Register from "./components/registrationform";
+import Register from "./components/register";
+import LoginC from './components/login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PackageMain from './components/packagemain';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/service" element={<Service/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/signin" element={<LoginC/>}/>
        
 
       </Routes>

@@ -1,6 +1,6 @@
-import Register from "../components/registrationform";
+import Register from "../components/register";
 
-function Home() {
+function Register() {
     return (
         <div>
            <Register/>
@@ -11,4 +11,4 @@ function Home() {
 
 }
 
-export default Home;
+export default Register;
