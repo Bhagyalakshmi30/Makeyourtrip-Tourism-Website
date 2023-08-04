@@ -1,0 +1,42 @@
+/* galleryStyles.css */
+
+.gallerycontainer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px;
+  }
+  
+  .image-gallery-slide img {
+    max-height: 500px;
+    object-fit: cover;
+  }
+  
+  .image-gallery-thumbnail {
+    border: 2px solid #ddd;
+    margin: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .image-gallery-thumbnail:hover {
+    border-color: #121827;
+  }
+  
+  .image-gallery-thumbnail.active {
+    border-color: #446f83;
+  }
+  
+  .image-gallery-fullscreen-button {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .image-gallery-fullscreen-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  

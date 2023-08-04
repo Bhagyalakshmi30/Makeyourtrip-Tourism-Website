@@ -5,10 +5,15 @@ import Home from "./routes/home";
 import About from "./routes/about";
 import Contact from "./routes/contact";
 import Service from "./routes/service";
+import Login from "./routes/login"
 import Register from "./components/register";
-import LoginC from './components/login';
+import ContactForm from './components/contactform'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Gallery from './routes/gallery'
 import PackageMain from './components/packagemain';
+import AdminHome from './routes/adminhome';
+
+
 
 
 function App() {
@@ -20,7 +25,10 @@ function App() {
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/service" element={<Service/>}/>
         <Route path="/register" element={<Register/>}/>
-        <Route path="/signin" element={<LoginC/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/gallery" element={<Gallery/>}/>
+        <Route path="/contactform" element={<ContactForm/>}/>
+        <Route path="/adminhome" element={<AdminHome/>}/>
        
 
       </Routes>

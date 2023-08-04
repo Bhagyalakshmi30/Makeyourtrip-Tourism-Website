@@ -1,20 +1,38 @@
+import ImageGallery from "react-image-gallery";
 import React from "react";
-import img1 from "../assests/info1.png"
+import "react-image-gallery/styles/css/image-gallery.css";
+import './gallery.css';
 
-const Gallery=()=>{
-    let data =[{
-        imgsrc:''
-    }]
-   
+export default function GalleryComponent() {
 
-    return(
-        <>
-        {
-            console.warn(data)
-        }
-        </>
-    )
+  const images = [
+    {
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+  ];
 
- }
 
- export default Gallery;
+  return (
+    <div className="gallerycontainer">
+      <h2>Gallery</h2>
+      <ImageGallery items={images} 
+      slideInterval={1000}
+      slideOnThumbnailOver={true}
+      
+      />;
+    </div>
+
+  );
+
+}
+
+

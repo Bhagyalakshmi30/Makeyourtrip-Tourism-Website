@@ -1,25 +1,25 @@
 export const MenuItems = [
     {
-        title: "Home",
+        title: "Travel Agents",
         url: "/",
         cName: "nav-links",
         icon: "fa-solid fa-house-user"
     },
     {
-        title: "About",
+        title: "Gallery",
         url: "/about",
         cName: "nav-links",
         icon: "fa-solid fa-circle-info"
 
     },
     {
-        title: "Service",
+        title: "Packages",
         url: "/service",
         cName: "nav-links",
         icon: "fa-solid fa-briefcase"
     },
     {
-        title: "Gallery",
+        title: "Feedback",
         url: "/gallery",
         cName: "nav-links",
        

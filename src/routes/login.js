@@ -1,10 +1,10 @@
 import LoginComponent from "../components/login";
-import Register from "../components/register";
 
-function Register() {
+
+function Login() {
     return (
         <div>
-           <Register/>
+           <LoginComponent/>
            
         </div>
 
@@ -12,5 +12,4 @@ function Register() {
 
 
 }
-
-export default Register;
+export default Login;

@@ -1,27 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Modal, InputLabel, Button, TextField, FormControlLabel, Radio, RadioGroup, FormControl, FormLabel, Container, Paper, Typography, MenuItem, Select } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import './ToastStyles.css';
 
-import { Modal, Button, Form, Dropdown } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+const StyledContainer = styled(Container)(({ theme }) => ({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	minHeight: '100vh',
+}));
 
+const StyledPaper = styled(Paper)(({ theme }) => ({
+	padding: theme.spacing(4),
+	width: 500,
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	maxHeight: '90vh', // Adjust this value as needed
+	overflowY: 'auto', // Enable vertical scrolling
+}));
+
+const StyledForm = styled('form')({
+	width: '100%',
+	marginTop: 16,
+});
+
+const StyledButton = styled(Button)(({ theme }) => ({
+	marginTop: theme.spacing(3),
+}));
 
 
 function Register() {
 
 
 
-
-
-
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 	const [userName, namechange] = useState("");
 	const [password, passwordchange] = useState("");
 	const [emailId, emailchange] = useState("");
 	const [phoneNumber, phonechange] = useState("");
 	const [country, countrychange] = useState("India");
-    const [agency, agencychange] = useState("");
+	const [agency, agencychange] = useState("");
 	const [gender, genderchange] = useState("");
 	const [role, rolechange] = useState("");
 	const [status, statuschange] = useState("");
@@ -29,7 +50,7 @@ function Register() {
 
 
 
-    const IsValidate = () => {
+	const IsValidate = () => {
 		let isproceed = true;
 		let errormessage = 'Please enter the value in ';
 		if (userName === null || userName === '') {
@@ -60,19 +81,22 @@ function Register() {
 			}
 		}
 		return isproceed;
-	
-    }
 
-    const isAgent = role.toLowerCase() === 'agent';
-    const handlesubmit = (e) => {
+	}
+
+	const isAgent = role.toLowerCase() === 'agent';
+	const handleSubmit = (e) => {
+		console.log("handle submit function")
 		e.preventDefault();
-		let regobj = { userName, password, emailId, phoneNumber, country, agency: isAgent ? agency : ''
-            ,gender, role, status: isAgent ? false : true};
+		let regobj = {
+			userName, password, emailId, phoneNumber, country, agency: isAgent ? agency : ''
+			, gender, role, status: isAgent ? false : true
+		};
 		console.log(JSON.stringify(regobj));
 		if (IsValidate()) {
 			localStorage.setItem('name', userName);
 			localStorage.setItem('email', emailId);
-			fetch('https://localhost:7224/api/Users', {
+			fetch('https://localhost:7239/api/Users/register', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(regobj),
@@ -92,9 +116,9 @@ function Register() {
 
 					// Check the user's role and navigate accordingly
 					if (role === 'traveller') {
-						navigate('/Otpverify');
+						navigate('/service');
 					} else if (role === 'agent') {
-						navigate('/Approval');
+						navigate('/contact');
 					}
 				})
 				.catch((err) => {
@@ -112,180 +136,138 @@ function Register() {
 				});
 		}
 	};
-	
+
+
+	const handleGenderChange = (event) => {
+		genderchange(event.target.value);
+	};
 
 
 
 
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		phoneNumber: '',
+		password: '',
+		confirmPassword: '',
+		agreeToTerms: false,
+	});
+
+	const handleChange = (e) => {
+		const { name, value, type, checked } = e.target;
+		setFormData((prevFormData) => ({
+			...prevFormData,
+			[name]: type === 'checkbox' ? checked : value,
+		}));
+	};
 
 
+	const [showModal, setShowModal] = useState(true);
 
-
-
-
-  
-
-    const handleGenderChange = (event) => {
-        genderchange(event.target.value);
-    };
-
-
-
-
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        password: '',
-        confirmPassword: '',
-        agreeToTerms: false,
-    });
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Here, you can add your form submission logic
-        console.log(formData);
-    };
-
-    const [showModal, setShowModal] = useState(true);
-
-    const handleClose = () => {
-        setShowModal(false);
-    };
-    const [selectedRole, setSelectedRole] = useState('');
-    const [agentCode, setAgentCode] = useState('');
-
-    const handleRoleChange = (event) => {
-        setSelectedRole(event.target.value);
-    };
-
-    const handleAgentCodeChange = (event) => {
-        setAgentCode(event.target.value);
-    };
-
-
-
-    return (
-        <div>
-
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        <h2>Register</h2>
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <form onSubmit={handlesubmit} className='form'>
-					<h3>New Account?</h3>
-					<div className="col">
-						<div className="form-group">
-							<label>Full Name <span className="errmsg">*</span></label>
-							<input value={userName} onChange={e => namechange(e.target.value)} className="form-control"></input>
-						</div>
-					</div>
-
-					<div className="col">
-						<div className="form-group">
-							<label>Password <span className="errmsg">*</span></label>
-							<input value={password} onChange={e => passwordchange(e.target.value)} type="password" className="form-control"></input>
-						</div>
-					</div>
-					<div className="col">
-						<div className="form-group">
-							<label>Email <span className="errmsg">*</span></label>
-							<input value={emailId} onChange={e => emailchange(e.target.value)} className="form-control"></input>
-						</div>
-					</div>
-					<div className="col">
-						<div className="form-group">
-							<label>Phone <span className="errmsg"></span></label>
-							<input value={phoneNumber} onChange={e => phonechange(e.target.value)} className="form-control"></input>
-						</div>
-					</div>
-					<div className="col">
-						<div className="form-group">
-							<label>Country <span className="errmsg">*</span></label>
-							<input value={country} onChange={e => countrychange(e.target.value)} className="form-control"></input>
-						</div>
-					</div>
-					
-
-					<div className="col">
-						<div className="form-group">
-							<label>Role <span className="errmsg">*</span></label>
-							<select value={role} onChange={e => {
-								rolechange(e.target.value);
-								
-							}} className="form-control">
-								<option value="">Select Role</option>
-                                <option value="traveller">Traveller</option>
-                                
-								<option value="agent">Travel Agent</option>
-								
-							</select>
-						</div>
-					</div>
-					{role === 'agent' && (
-						<div className="col-lg-12">
-							<div className="form-group">
-								<label>AGENCY Name <span className="errmsg">*</span></label>
-								<input value={agency} onChange={e => agencychange(e.target.value)} className="form-control"></input>
-							</div>
-						</div>
-					)}
-					<div className="col">
-						<div className="form-group ">
-							<label>Gender <span className="errmsg">*</span></label>
-							<br></br>
-							<input
-								type="radio"
-								checked={gender === 'male'}
-								onChange={e => genderchange(e.target.value)}
-								name="gender"
-								value="male"
-								className="app-check"
+	const handleClose = () => {
+		setShowModal(false);
+	};
+	return (
+		<Modal open={showModal} onClose={handleClose}>
+			<StyledContainer>
+				<StyledPaper>
+					<Typography variant="h5" gutterBottom>
+						Register
+					</Typography>
+					<StyledForm onSubmit={handleSubmit}>
+						<TextField
+							label="Full Name"
+							value={userName}
+							onChange={(e) => namechange(e.target.value)}
+							fullWidth
+							margin="normal"
+							required
+						/>
+						<TextField
+							label="Password"
+							value={password}
+							onChange={(e) => passwordchange(e.target.value)}
+							type="password"
+							fullWidth
+							margin="normal"
+							required
+						/>
+						<TextField
+							label="Email"
+							value={emailId}
+							onChange={(e) => emailchange(e.target.value)}
+							fullWidth
+							margin="normal"
+							required
+						/>
+						<TextField
+							label="Phone"
+							value={phoneNumber}
+							onChange={(e) => phonechange(e.target.value)}
+							fullWidth
+							margin="normal"
+						/>
+						<TextField
+							label="Country"
+							value={country}
+							onChange={(e) => countrychange(e.target.value)}
+							fullWidth
+							margin="normal"
+						/>
+						<FormControl fullWidth margin="normal">
+							<InputLabel>Role</InputLabel>
+							<Select
+								value={role}
+								onChange={(e) => rolechange(e.target.value)}
+								required
+							>
+								<MenuItem value="traveller">Traveller</MenuItem>
+								<MenuItem value="agent">Travel Agent</MenuItem>
+							</Select>
+						</FormControl>
+						{role === 'agent' && (
+							<TextField
+								label="Agency Name"
+								value={agency}
+								onChange={(e) => agencychange(e.target.value)}
+								fullWidth
+								margin="normal"
+								required
 							/>
-							<label>Male</label>&nbsp;
-							<input
-								type="radio"
-								checked={gender === 'female'}
-								onChange={e => genderchange(e.target.value)}
-								name="gender"
-								value="female"
-								className="app-check"
-							/>
-							<label>Female</label>
-						</div>
-					</div>
-					<div className="">
-						<button type="submit" className="button ">Register</button>
-						Already have an account? <Link to={'/login'} className="">Login</Link>
-					</div>
-
-				</form>
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={handleClose}>Close</Button>
-                </Modal.Footer>
-            </Modal>
-
-
-        </div>
-
-
-
-
-    );
-
+						)}
+						<FormControl component="fieldset" fullWidth margin="normal">
+							<FormLabel component="legend">Gender</FormLabel>
+							<RadioGroup
+								row
+								aria-label="gender"
+								value={gender}
+								onChange={handleGenderChange}
+							>
+								<FormControlLabel
+									value="male"
+									control={<Radio />}
+									label="Male"
+								/>
+								<FormControlLabel
+									value="female"
+									control={<Radio />}
+									label="Female"
+								/>
+							</RadioGroup>
+						</FormControl>
+						<StyledButton type="submit" variant="contained" color="primary">
+							Register
+						</StyledButton>
+						<Link to="/login">
+							<Button>Sign Up</Button>
+						</Link>
+						Already have an account? <Link to={'/signin'}>Login</Link>
+					</StyledForm>
+				</StyledPaper>
+			</StyledContainer>
+		</Modal>
+	);
 
 }
 

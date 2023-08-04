@@ -1,68 +1,81 @@
-
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {  Button, Form } from 'react-bootstrap';
-import { Col,  Row, Container, Card} from "react-bootstrap";
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-function Login()  {
+const LoginContainer = styled(Container)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+}));
 
-    return (
-        <div>
-            <h1>Make yout Trip - Your travel partner</h1>
-            <h2 >Don't have an account register here</h2>
-            
-            <div className="mt-5 mb-5">
-                <Container>
-                    <Row className="vh-50 d-flex justify-content-center align-items-center">
-                        <Col md={8} lg={6} xs={12}>
-                            <div className="border border-3 border-primary"></div>
-                            <Card className="shadow">
-                                <Card.Body>
-                                    <div className="mb-3 mt-md-4">
-                                        <h2 className="fw-bold mb-2 text-uppercase ">SIGN UP</h2>
-                                        <p className=" mb-3">Please enter your login and password!</p>
-                                        <div className="mb-3">
-                                            <Form>
-                                                <Form.Group className="mb-3 ms-5 me-5" controlId="formBasicEmail">
-                                                    <Form.Label className="text">
-                                                        Email address
-                                                    </Form.Label>
-                                                    <Form.Control type="email" placeholder="Enter email" />
-                                                </Form.Group>
+const LoginPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  width: 400,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}));
 
-                                                <Form.Group
-                                                    className="mb-3 ms-5 me-5"
-                                                    controlId="formBasicPassword"
-                                                >
-                                                    <Form.Label>Password</Form.Label>
-                                                    <Form.Control type="password" placeholder="Password" />
-                                                </Form.Group>
-                                                
-                                                <div className="d-grid ">
-                                                    <Button variant="primary" type="submit">
-                                                        Login
-                                                    </Button>
-                                                </div>
-                                            </Form>
-                                            
-                                        </div>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+const LoginForm = styled('form')({
+  width: '100%',
+  marginTop: 16,
+});
 
-            <Link to="/" >
-                <button>Back to Home Page</button>
-            </Link>
+const LoginButton = styled(Button)(({ theme }) => ({
+  marginTop: theme.spacing(3),
+}));
 
-            
-            
-        </div>
-    );
-};
+function LoginComponent() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-export default Login;
+  const handleLogin = () => {
+    // Handle login logic here
+  };
+
+  return (
+    <LoginContainer>
+      <LoginPaper elevation={3}>
+        <Typography variant="h5" gutterBottom>
+          Login
+        </Typography>
+        <LoginForm>
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <LoginButton
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleLogin}
+          >
+            Login
+          </LoginButton>
+        </LoginForm>
+      </LoginPaper>
+    </LoginContainer>
+  );
+}
+
+export default LoginComponent;
