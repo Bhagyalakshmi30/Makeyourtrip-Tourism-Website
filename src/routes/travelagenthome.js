@@ -1,20 +1,24 @@
+import React from "react";
+
 import Hero from "../components/hero";
-import Navbar from "../components/navbar";
+
 import heroimage from "../assests/home.jpg"
 import Destination from "../components/destination";
 import Trip from "../components/trip";
 import Footer from "../components/footer";
+import TravelAgentNavbar from "../components/travelagentnavbar";
 
-function Home() {
+
+function TravelAgentHome() {
     return (
         <div>
-            <Navbar />
+            <TravelAgentNavbar/>
+            
             <Hero
                 cName="hero"
                 heroimage={heroimage}
                 title="Your Journey  Your Story"
                 text=" Choose your destination"
-                
                 buttonText="Travel Plan"
                 url="/"
                 btnClass="show"
@@ -29,4 +33,4 @@ function Home() {
 
 }
 
-export default Home;
+export default TravelAgentHome;

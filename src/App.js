@@ -10,8 +10,9 @@ import Register from "./components/register";
 import ContactForm from './components/contactform'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Gallery from './routes/gallery'
-import PackageMain from './components/packagemain';
+
 import AdminHome from './routes/adminhome';
+import TravelAgentHome from './routes/travelagenthome';
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/gallery" element={<Gallery/>}/>
         <Route path="/contactform" element={<ContactForm/>}/>
         <Route path="/adminhome" element={<AdminHome/>}/>
+        <Route path="/travelagenthome" element={<TravelAgentHome/>}/>
        
 
       </Routes>

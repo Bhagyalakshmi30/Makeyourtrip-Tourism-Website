@@ -1,11 +1,11 @@
 import { Component } from "react";
-import { MenuItems } from "./adminnavbaritems";
+import { MenuItems } from "./travelagentnavbaritems";
 import { Link } from 'react-router-dom';
 import "./navbar.css";
 import React from 'react'
 
 
-class AdminNavbar extends Component {
+class TravelAgentNavbar extends Component {
 
     
 
@@ -48,4 +48,4 @@ class AdminNavbar extends Component {
     }
 }
 
-export default AdminNavbar;
+export default TravelAgentNavbar;

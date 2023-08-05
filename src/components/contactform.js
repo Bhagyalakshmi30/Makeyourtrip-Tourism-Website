@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 function ContactSection() {
   return (
-    <section id="contact" className="py-4">
+    <section id="contactform" className="py-4">
       <Container>
         <Box mb={4}>
           <Typography variant="subtitle1" className="sm-title">
