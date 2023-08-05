@@ -222,11 +222,11 @@ function Register() {
 								onChange={(e) => rolechange(e.target.value)}
 								required
 							>
-								<MenuItem value="traveller">Traveller</MenuItem>
-								<MenuItem value="agent">Travel Agent</MenuItem>
+								<MenuItem value="Traveller">Traveller</MenuItem>
+								<MenuItem value="Agent">Travel Agent</MenuItem>
 							</Select>
 						</FormControl>
-						{role === 'agent' && (
+						{role === 'Agent' && (
 							<TextField
 								label="Agency Name"
 								value={agency}
@@ -259,10 +259,11 @@ function Register() {
 						<StyledButton type="submit" variant="contained" color="primary">
 							Register
 						</StyledButton>
-						<Link to="/login">
+						<br/>
+						{/* <Link to="/login">
 							<Button>Sign Up</Button>
-						</Link>
-						Already have an account? <Link to={'/signin'}>Login</Link>
+						</Link> */}
+						Already have an account? <Link to={'/login'}><Button>Sign Up</Button></Link>
 					</StyledForm>
 				</StyledPaper>
 			</StyledContainer>

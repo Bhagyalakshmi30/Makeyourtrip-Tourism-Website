@@ -1,20 +1,20 @@
 export const MenuItems = [
     {
-        title: "Travel Agents",
-        url: "/",
+        title: "Agent Approval",
+        url: "/adminapproval",
         cName: "nav-links",
         icon: "fa-solid fa-house-user"
     },
     {
         title: "Gallery",
-        url: "/about",
+        url: "/admingallery",
         cName: "nav-links",
         icon: "fa-solid fa-circle-info"
 
     },
     {
         title: "Packages",
-        url: "/service",
+        url: "/viewallpackages",
         cName: "nav-links",
         icon: "fa-solid fa-briefcase"
     },
@@ -25,8 +25,8 @@ export const MenuItems = [
        
     },
     {
-        title: "Contact",
-        url: "/contact",
+        title: "Users",
+        url: "/viewallusers",
         cName: "nav-links",
         icon: "fa-solid fa-address-book"
     },  

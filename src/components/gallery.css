@@ -1,4 +1,4 @@
-/* galleryStyles.css */
+/* galleryStyles.css
 
 .gallerycontainer {
     max-width: 900px;
@@ -38,5 +38,36 @@
   
   .image-gallery-fullscreen-button:hover {
     background-color: rgba(0, 0, 0, 0.9);
+  }
+   */
+
+
+   .image-gallery-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .gallery-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .carousel-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+  
+    background-color: #f5f2f2;
+  }
+  
+  .carousel-image {
+    max-width: 100%;
+    max-height: 100%;
   }
   
