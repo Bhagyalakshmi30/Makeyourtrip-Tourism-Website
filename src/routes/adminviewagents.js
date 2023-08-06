@@ -3,8 +3,9 @@ import Footer from "../components/footer";
 
 import AllPackages from "../components/allpackagesdisplay";
 import ViewUsers from "../components/allusersdisplay";
+import Viewagent from "../components/allagentsdisplay";
 
-function AdminViewUsers() {
+function AdminViewAgents() {
     return (
         <div>
 
@@ -12,7 +13,7 @@ function AdminViewUsers() {
             
 
               
-               <ViewUsers/>
+               <Viewagent/>
                 
                 <Footer />
             </>
@@ -24,4 +25,4 @@ function AdminViewUsers() {
 
 }
 
-export default AdminViewUsers;
+export default AdminViewAgents;

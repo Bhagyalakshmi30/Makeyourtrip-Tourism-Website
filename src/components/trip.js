@@ -2,7 +2,8 @@ import "./trip.css"
 import TripData from "./tripdata";
 import trip1 from "../assests/1.jpg"
 import trip2 from "../assests/2.jpg"
-import trip3 from "../assests/heroimage.jpg"
+import trip3 from "../assests/heroimage.jpg";
+import { Link } from 'react-router-dom';
 
 
 function Trip() {
@@ -10,6 +11,7 @@ function Trip() {
         <div className="trip">
             <h1>Recent Trips</h1>
             <p>Discover unique destinations</p>
+            <Link to="/packagesearch" ><button className="viewallbutton">View All<i className="fa fa-arrow-right" aria-hidden="true"></i></button> </Link>
             <div className="tripcard">
                 <TripData
                     image={trip1}

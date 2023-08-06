@@ -4,6 +4,7 @@ import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { Page, Text, View, Document, StyleSheet, Image, pdf } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
@@ -45,23 +46,20 @@ const styles = StyleSheet.create({
 const PDFView = ({ data }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Text style={{fontSize:20,marginLeft:'40%'}}>Package Details</Text>
+      <Text style={{fontSize:20,marginLeft:'40%'}}>Restaurant Details</Text>
       <View style={styles.outerBorder}>
         <View style={styles.innerBorder}>
           {data.map((item, index) => (
             <View key={index} style={styles.container}>
-              {item.packageImage && (
+              {item.hotelImage && (
                 <Image
-                  src={`data:image/jpeg;base64,${item.packageImage}`}
+                  src={`data:image/jpeg;base64,${item.hotelImage}`}
                   style={styles.cardMediaa}
                 />
               )}
               <View style={styles.cardContent}>
-                 <Text style={{fontSize:20,paddingBottom:10}}>{item.packageName}</Text> 
-                <Text style={{fontSize:15,paddingBottom:10}}>{item.destination}</Text>
-                <Text style={{fontSize:15,paddingBottom:10}}>{item.days} days</Text>
-                <Text style={{fontSize:15,paddingBottom:2}}>Price for Adult: {item.adultPrice}</Text>
-                <Text style={{fontSize:15,paddingBottom:2}}>Price for Child: {item.childPrice}</Text>
+                <Text style={{fontSize:20,paddingBottom:10}}>{item.hotelName}</Text>
+                <Text style={{fontSize:15,paddingBottom:10}}>{item.location}</Text>
               </View>
             </View>
           ))}
@@ -73,12 +71,12 @@ const PDFView = ({ data }) => (
 
 
 
-const Viewpackage = () => {
+const Viewhotel = () => {
   const [uploadedFileData, setUploadedFileData] = useState([]);
 
   const getFileData = async () => {
     try {
-      const res = await axios.get("https://localhost:7239/api/Package", {
+      const res = await axios.get("https://localhost:7239/api/Hotels", {
         responseType: "json",
       });
       if (Array.isArray(res.data)) {
@@ -105,68 +103,55 @@ const Viewpackage = () => {
   return (
     <div>
       <Button variant="outlined" color="secondary" onClick={getFileData}>
-        View Package
+       View Hotels
       </Button>&nbsp;&nbsp;
 
-      {uploadedFileData.length > 0 && (
-        <>
-        <PDFDownloadLink document={<PDFView data={uploadedFileData} />} fileName="tour_details.pdf">
-          {({ blob, url, loading, error }) =>
-            loading ? 'Loading document...' : (
-              <Button variant="outlined" color="primary">
-                Download PDF
-              </Button>
-            )
-          }
-        </PDFDownloadLink>
-    &nbsp;&nbsp;
-        <Button variant="outlined" color="primary" onClick={handleOpenPDF}>
-          Open PDF
+{uploadedFileData.length > 0 && (
+  <>
+  <PDFDownloadLink document={<PDFView data={uploadedFileData} />} fileName="hotel details.pdf">
+    {({ blob, url, loading, error }) =>
+      loading ? 'Loading document...' : (
+        <Button variant="outlined" color="primary">
+          Download PDF
         </Button>
-        </>
-      )}
-
+      )
+    }
+  </PDFDownloadLink>
+&nbsp;&nbsp;
+  <Button variant="outlined" color="primary" onClick={handleOpenPDF}>
+    Open PDF
+  </Button>
+  </>
+)}
 
       {uploadedFileData.length > 0 && (
         <div>
-          <br />
-          <h3>Package Details</h3>
+          <br></br>
+          <h3>Hotel Details</h3>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
             {uploadedFileData.map((item, index) => (
-              <Card key={index} style={styles.card}>
+              <Card key={index} style={{ margin: '10px', maxWidth: '300px' }}>
                 <CardContent>
                   <Typography variant="h5" component="h2">
-                    {item.packageName}
+                    {item.hotelName}
                   </Typography>
                   <Typography color="textSecondary">
-                    {item.destination}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    {item.days} days
-                  </Typography>
-                  <Typography color="textSecondary">
-                    Price for Adult: {item.adultPrice}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    Price for Child: {item.childPrice}
+                    {item.location}
                   </Typography>
                 </CardContent>
                 <CardMedia
                   component="img"
-                  src={`data:image/jpeg;base64,${item.packageImage}`}
+                  src={`data:image/jpeg;base64,${item.hotelImage}`}
                   alt={`Image ${index + 1}`}
-                  style={{ width: '320px',
-                  height: '150px',
-                  objectFit: 'cover',}}
+                  style={{ width: '100%', height: '150px', objectFit: 'cover' }}
                 />
               </Card>
             ))}
           </div>
-          <br />
         </div>
       )}
     </div>
   );
 };
 
-export default Viewpackage;
+export default Viewhotel;

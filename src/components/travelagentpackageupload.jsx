@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const TravelAgentPackageForm = () => {
+
+    const history = useHistory(); 
+
+
     const [formData, setFormData] = useState({
         destination: '',
         adultPrice: 0,
@@ -30,6 +35,15 @@ const TravelAgentPackageForm = () => {
         }));
     };
 
+    
+    const handleUploadHotel = () => {
+        // Perform any necessary data validation before navigating
+        if (formData.packageId) {
+            // Navigate to the PostHotel component and pass packageId as a query parameter
+            history.push(`/post-hotel?packageId=${formData.packageId}`);
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -39,11 +53,14 @@ const TravelAgentPackageForm = () => {
         }
 
         try {
-            await axios.post('https://localhost:7239/api/Packages', packageData, {
+            const response = await axios.post('https://localhost:7239/api/Packages', packageData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+    
+            // Assuming the server responds with the generated package ID
+            const packageId = response.data.packageId;
 
             // Clear form data after successful submission
             setFormData({
@@ -58,6 +75,8 @@ const TravelAgentPackageForm = () => {
                 description: '',
                 packageImage: null,
             });
+
+            uploadHotels(packageId);
         } catch (error) {
             console.error('Error submitting package details:', error);
         }
@@ -162,7 +181,12 @@ const TravelAgentPackageForm = () => {
                     />
                 </label>
                 <button type="submit">Submit</button>
+
+                <button type="button" onClick={handleUploadHotel}>
+                Upload Hotel
+            </button>
             </form>
+            
         </div>
     );
       

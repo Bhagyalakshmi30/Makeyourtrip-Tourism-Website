@@ -46,14 +46,15 @@ const styles = StyleSheet.create({
 const PDFView = ({ data }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Text style={{fontSize:20,marginLeft:'40%'}}>User Details</Text>
+      <Text style={{fontSize:20,marginLeft:'40%'}}>Agent Details</Text>
       <View style={styles.outerBorder}>
         <View style={styles.innerBorder}>
           {data.map((item, index) => (
             <View key={index} style={styles.container}>
              
               <View style={styles.cardContent}>
-                <Text style={{fontSize:20,paddingBottom:10}}>{item.userName}</Text>
+                <Text style={{fontSize:20,paddingBottom:10}}>{item.agency_Name}</Text>
+                <Text style={{fontSize:15,paddingBottom:10}}>{item.userName}</Text>
                 <Text style={{fontSize:15,paddingBottom:10}}>{item.userEmail}</Text>
                 <Text style={{fontSize:15,paddingBottom:10}}>{item.phone_Number}</Text>
               </View>
@@ -67,12 +68,12 @@ const PDFView = ({ data }) => (
 
 
  
-const Viewusers=()=>{
+const Viewagent=()=>{
     const [uploadedFileData, setUploadedFileData] = useState([]);
 
     const getFileData = async () => {
       try {
-        const res = await axios.get("https://localhost:7239/api/UserFun/Traveller", {
+        const res = await axios.get("https://localhost:7239/api/UserFun/Agent", {
           responseType: "json",
         });
         if (Array.isArray(res.data)) {
@@ -94,7 +95,6 @@ const Viewusers=()=>{
         }
         
       };
-
     useEffect(()=>{
         getFileData();
     },[]);
@@ -105,7 +105,7 @@ return(
 
 {uploadedFileData.length > 0 && (
   <>
-  <PDFDownloadLink document={<PDFView data={uploadedFileData} />} fileName="user_details.pdf">
+  <PDFDownloadLink document={<PDFView data={uploadedFileData} />} fileName="agent_details.pdf">
     {({ blob, url, loading, error }) =>
       loading ? 'Loading document...' : (
         <Button variant="outlined" color="primary">
@@ -123,7 +123,7 @@ return(
 {uploadedFileData.length > 0 && (
         <div>
           <br></br>
-          <h3>User Details</h3>
+          <h3>Agent Details</h3>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
             {uploadedFileData.map((item, index) => (
               <Card key={index} style={{ margin: '10px', maxWidth: '300px' }}>
@@ -137,6 +137,9 @@ return(
                   <Typography color="textSecondary">
                     {item.phone_Number}
                   </Typography>
+                  <Typography color="textSecondary">
+                    {item.agency_Name}
+                  </Typography>
                 </CardContent>
                 
               </Card>
@@ -148,4 +151,4 @@ return(
 );
 };
 
-export default Viewusers;
+export default Viewagent;

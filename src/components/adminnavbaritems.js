@@ -19,8 +19,8 @@ export const MenuItems = [
         icon: "fa-solid fa-briefcase"
     },
     {
-        title: "Feedback",
-        url: "/gallery",
+        title: "Agents",
+        url: "/viewallagents",
         cName: "nav-links",
        
     },
