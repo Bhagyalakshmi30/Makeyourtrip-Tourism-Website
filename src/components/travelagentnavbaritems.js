@@ -7,7 +7,7 @@ export const MenuItems = [
     },
     {
         title: "View Packages",
-        url: "/",
+        url: "/viewaagentpackage",
         cName: "nav-links",
         icon: "fa-solid fa-circle-info"
 

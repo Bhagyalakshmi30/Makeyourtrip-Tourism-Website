@@ -1,7 +1,7 @@
 export const MenuItems = [
     {
-        title: "Home",
-        url: "/",
+        title: "Packages",
+        url: "/packages",
         cName: "nav-links",
         icon: "fa-solid fa-house-user"
     },
