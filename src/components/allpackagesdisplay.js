@@ -103,7 +103,9 @@ const Viewpackage = () => {
   };
 
   return (
-    <div>
+    <div  className='maincomponent'>
+      <h2>Click to view all Packages in Make Your Trip</h2>
+      <h5>You can also download the details in pdf</h5>
       <Button variant="outlined" color="secondary" onClick={getFileData}>
         View Package
       </Button>&nbsp;&nbsp;

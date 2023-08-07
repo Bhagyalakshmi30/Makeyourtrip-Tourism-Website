@@ -15,7 +15,7 @@ import AdminHome from './routes/adminhome';
 import TravelAgentHome from './routes/travelagenthome';
 import AdminApproval from './routes/adminapproval';
 import AdminGallery from './routes/admingallery';
-import TravelAgentPackage from './routes/travelagentpackage';
+import TravelAgentPackage from './components/travelagentpackage';
 import { ToastContainer } from 'react-toastify';
 import TravelAgentPackageView from './routes/travelagentpackageview';
 import AdminViewPackages from './routes/adminviewpackages';
@@ -30,16 +30,20 @@ import PostHotel from './components/posthotel';
 import BookingForm from './components/booking';
 import PackageDetailsPage from './components/packagedetailspage';
 import HotelList from './components/hotellist';
+import TravelAgentUploadPackage from './routes/travelagentuploadpackage';
 
 import Navbar from './components/navbar';
-
+import TravelAgentUploadHotel from './routes/travelagentuploadhotel';
+import TravelAgentUploadRestaurant from './routes/travelagentuploadrestaurants';
+import TravelAgentUploadSpots from './routes/travelagentuploadspot';
+import TravelAgentViewPackage from './routes/travelagentviewpackage';
 
 
 
 function App() {
   return (
     <div className="App">
-      <Navbar/>
+      
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/about" element={<About/>}/>
@@ -62,8 +66,12 @@ function App() {
         <Route path="/viewallusers" element={<AdminViewUsers/>}/>
         <Route path="/viewallagents" element={<AdminViewAgents/>}/>
         <Route path="/travelagenthome" element={<TravelAgentHome/>}/>
-        <Route path="/travelagentpackage" element={<TravelAgentPackage/>}/>
+        <Route path="/uploadpackages" element={<TravelAgentUploadPackage/>}/>
+        <Route path="/uploadhotels" element={<TravelAgentUploadHotel/>}/>
+        <Route path="/uploadrestaurants" element={<TravelAgentUploadRestaurant/>}/>
+        <Route path="/uploadspots" element={<TravelAgentUploadSpots/>}/>
         <Route path="/packagedetails" component={PackageDetailsPage} />
+        <Route path="/viewaagentpackage" element={<TravelAgentViewPackage/>}/>
         
         <Route path="/hotellist/:destination" element={<HotelList/>} />
         <Route path="/post-hotel" element={<PostHotel/>} />
@@ -72,7 +80,7 @@ function App() {
        
 
       </Routes>
-      <ToastContainer/>
+      <ToastContainer position="bottom-right" />
       
     
     

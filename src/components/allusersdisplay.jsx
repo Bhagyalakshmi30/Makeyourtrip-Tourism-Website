@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Page, Text, View, Document, StyleSheet, Image, pdf } from '@react-pdf/renderer';
@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   outerBorder: {
-   
-    padding: 20, 
+
+    padding: 20,
     flexGrow: 1,
     flexBasis: '100%',
   },
   innerBorder: {
-    border: '1px solid black', 
-    padding: 10, 
+    border: '1px solid black',
+    padding: 10,
     flexGrow: 1,
     flexBasis: '100%',
   },
@@ -46,16 +46,16 @@ const styles = StyleSheet.create({
 const PDFView = ({ data }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Text style={{fontSize:20,marginLeft:'40%'}}>User Details</Text>
+      <Text style={{ fontSize: 20, marginLeft: '40%' }}>User Details</Text>
       <View style={styles.outerBorder}>
         <View style={styles.innerBorder}>
           {data.map((item, index) => (
             <View key={index} style={styles.container}>
-             
+
               <View style={styles.cardContent}>
-                <Text style={{fontSize:20,paddingBottom:10}}>{item.userName}</Text>
-                <Text style={{fontSize:15,paddingBottom:10}}>{item.userEmail}</Text>
-                <Text style={{fontSize:15,paddingBottom:10}}>{item.phone_Number}</Text>
+                <Text style={{ fontSize: 20, paddingBottom: 10 }}>{item.userName}</Text>
+                <Text style={{ fontSize: 15, paddingBottom: 10 }}>{item.userEmail}</Text>
+                <Text style={{ fontSize: 15, paddingBottom: 10 }}>{item.phone_Number}</Text>
               </View>
             </View>
           ))}
@@ -66,61 +66,64 @@ const PDFView = ({ data }) => (
 );
 
 
- 
-const Viewusers=()=>{
-    const [uploadedFileData, setUploadedFileData] = useState([]);
 
-    const getFileData = async () => {
-      try {
-        const res = await axios.get("https://localhost:7239/api/UserFun/Traveller", {
-          responseType: "json",
-        });
-        if (Array.isArray(res.data)) {
-          setUploadedFileData(res.data);
-        } else {
-          console.log("Invalid data format received:", res.data);
-        }
-      } catch (ex) {
-        console.log("Error fetching data:", ex);
+const Viewusers = () => {
+  const [uploadedFileData, setUploadedFileData] = useState([]);
+
+  const getFileData = async () => {
+    try {
+      const res = await axios.get("https://localhost:7239/api/UserFun/Traveller", {
+        responseType: "json",
+      });
+      if (Array.isArray(res.data)) {
+        setUploadedFileData(res.data);
+      } else {
+        console.log("Invalid data format received:", res.data);
       }
-    };
-    const handleOpenPDF = () => {
-        if (uploadedFileData.length > 0) {
-          const doc = <PDFView data={uploadedFileData} />;
-          pdf(doc).toBlob().then((blob) => {
-            const url = URL.createObjectURL(blob);
-            window.open(url);
-          });
-        }
-        
-      };
-
-    useEffect(()=>{
-        getFileData();
-    },[]);
-    
-return(
-<div>
-
-
-{uploadedFileData.length > 0 && (
-  <>
-  <PDFDownloadLink document={<PDFView data={uploadedFileData} />} fileName="user_details.pdf">
-    {({ blob, url, loading, error }) =>
-      loading ? 'Loading document...' : (
-        <Button variant="outlined" color="primary">
-          Download PDF
-        </Button>
-      )
+    } catch (ex) {
+      console.log("Error fetching data:", ex);
     }
-  </PDFDownloadLink>
-&nbsp;&nbsp;
-  <Button variant="outlined" color="primary" onClick={handleOpenPDF}>
-    Open PDF
-  </Button>
-  </>
-)}
-{uploadedFileData.length > 0 && (
+  };
+  const handleOpenPDF = () => {
+    if (uploadedFileData.length > 0) {
+      const doc = <PDFView data={uploadedFileData} />;
+      pdf(doc).toBlob().then((blob) => {
+        const url = URL.createObjectURL(blob);
+        window.open(url);
+      });
+    }
+
+  };
+
+  useEffect(() => {
+    getFileData();
+  }, []);
+
+  return (
+    <div className="maincomponent">
+       <h2>All Users List</h2>
+      <h5>Click here to download details as pdf</h5>
+
+
+
+      {uploadedFileData.length > 0 && (
+        <>
+          <PDFDownloadLink document={<PDFView data={uploadedFileData} />} fileName="user_details.pdf">
+            {({ blob, url, loading, error }) =>
+              loading ? 'Loading document...' : (
+                <Button variant="outlined" color="primary">
+                  Download PDF
+                </Button>
+              )
+            }
+          </PDFDownloadLink>
+          &nbsp;&nbsp;
+          <Button variant="outlined" color="primary" onClick={handleOpenPDF}>
+            Open PDF
+          </Button>
+        </>
+      )}
+      {uploadedFileData.length > 0 && (
         <div>
           <br></br>
           <h3>User Details</h3>
@@ -138,14 +141,14 @@ return(
                     {item.phone_Number}
                   </Typography>
                 </CardContent>
-                
+
               </Card>
             ))}
           </div>
         </div>
       )}
-</div>
-);
+    </div>
+  );
 };
 
 export default Viewusers;

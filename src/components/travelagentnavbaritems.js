@@ -1,13 +1,13 @@
 export const MenuItems = [
     {
         title: "Upload Packages",
-        url: "/travelagentpackage",
+        url: "/uploadpackages",
         cName: "nav-links",
         icon: "fa-solid fa-house-user"
     },
     {
         title: "View Packages",
-        url: "/travelagentsviewpackages",
+        url: "/",
         cName: "nav-links",
         icon: "fa-solid fa-circle-info"
 

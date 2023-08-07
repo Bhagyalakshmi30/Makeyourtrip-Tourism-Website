@@ -3,18 +3,20 @@ import Footer from "../components/footer";
 
 import AllPackages from "../components/allpackagesdisplay";
 import Viewpackage from "../components/allpackagesdisplay";
+import AdminNavbar from "../components/adminnavbar";
 
 function AdminViewPackages() {
     return (
         <div>
 
             <>
+            <AdminNavbar/>
             <Viewpackage/>
 
                
                {/* <AdminApprovalCompo/> */}
                 
-                <Footer />
+                {/* <Footer /> */}
             </>
 
         </div>
