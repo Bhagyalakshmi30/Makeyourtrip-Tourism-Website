@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useParams, Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotel, faUtensils, faLandmark } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 
 function DestinationDetails() {
+    const navigate = useNavigate();
     const [selectedHotel, setSelectedHotel] = useState(null);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [hotels, setHotels] = useState([]);
-    const [restaurants, setRestaurants] = useState([]);
+    const [restaurents, setRestaurants] = useState([]);
     const [touristSpots, setTouristSpots] = useState([]);
     const { destination } = useParams();
 
@@ -25,13 +29,13 @@ function DestinationDetails() {
                 console.error('Error fetching hotel data:', error);
             });
 
-        // Fetch restaurants
+        // Fetch restaurents
         axios.get(`https://localhost:7239/api/Restaurant/Location?location=${encodeURIComponent(destination)}`)
             .then(response => {
                 setRestaurants(response.data);
             })
             .catch(error => {
-                console.error('Error fetching restaurant data:', error);
+                console.error('Error fetching restaurent data:', error);
             });
 
         // Fetch tourist spots
@@ -42,7 +46,7 @@ function DestinationDetails() {
             .catch(error => {
                 console.error('Error fetching tourist spot data:', error);
             });
-    }, [destination]);
+    }, [destination, navigate, selectedHotel, selectedRestaurant]);
 
     const cardStyle = {
         textDecoration: 'none',
@@ -77,15 +81,29 @@ function DestinationDetails() {
 
     const showSubmitButton = selectedHotel && selectedRestaurant;
 
-    // Function to handle the booking submission
+
     const handleBookingSubmit = () => {
         if (selectedHotel && selectedRestaurant) {
+            // Extract hotelId, restaurentId, and packageId from selectedHotel and selectedRestaurant
+            const hotelId = selectedHotel.hotelId;
+            const restaurentId = selectedRestaurant.restaurentId;
+            const packageId = selectedHotel.packageId;
+
+            // Construct the URL with selected hotelId, restaurentId, and packageId as parameters
+            const bookingUrl = `/booking?hotelId=${hotelId}&restaurentId=${restaurentId}&packageId=${packageId}`;
+
+            // Log details before navigating
             console.log('Selected Hotel:', selectedHotel);
             console.log('Selected Restaurant:', selectedRestaurant);
-            // Replace with your actual package ID
-            console.log('Selected Package ID:', null);
+            console.log('Booking URL:', bookingUrl);
+
+            // Navigate to the booking URL
+            navigate(bookingUrl);
         }
     };
+
+
+
 
     return (
         <div className='maincomponent'>
@@ -124,19 +142,19 @@ function DestinationDetails() {
 
                 {/* Restaurants */}
                 <h2 style={headingStyle}>Restaurants</h2>
-                <div className="restaurant-cards">
+                <div className="restaurent-cards">
                     <Row>
-                        {restaurants && restaurants.length > 0 ? (
-                            restaurants.map(restaurant => (
-                                <Col sm={4} key={restaurant.restaurantId}>
+                        {restaurents && restaurents.length > 0 ? (
+                            restaurents.map(restaurent => (
+                                <Col sm={4} key={restaurent.restaurentId}>
                                     <Card style={cardStyle}>
-                                        <Card.Img variant="top" style={ImageStyle} src={`data:image/jpeg;base64,${restaurant.restaurentImage}`} alt="Restaurant image" />
+                                        <Card.Img variant="top" style={ImageStyle} src={`data:image/jpeg;base64,${restaurent.restaurentImage}`} alt="Restaurant image" />
                                         <Card.Body style={cardBodyStyle}>
-                                            <Card.Title>{restaurant.restaurentName}</Card.Title>
+                                            <Card.Title>{restaurent.restaurentName}</Card.Title>
                                             <button
                                                 type="button"
-                                                className={`btn btn-primary ${selectedRestaurant === restaurant ? 'selected' : ''}`}
-                                                onClick={() => setSelectedRestaurant(restaurant)}
+                                                className={`btn btn-primary ${selectedRestaurant === restaurent ? 'selected' : ''}`}
+                                                onClick={() => setSelectedRestaurant(restaurent)}
                                             >
                                                 Select Restaurant
                                             </button>
@@ -145,7 +163,7 @@ function DestinationDetails() {
                                 </Col>
                             ))
                         ) : (
-                            <p>No restaurants available for {destination}.</p>
+                            <p>No restaurents available for {destination}.</p>
                         )}
                     </Row>
                 </div>
@@ -172,18 +190,19 @@ function DestinationDetails() {
                     </Row>
                 </div>
 
-                {/* Submit Booking */}
                 {showSubmitButton && (
                     <div className="submit-booking">
-                        <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={handleBookingSubmit}
-                        >
-                            Submit Booking
+                        {/* Use the handleBookingSubmit function */}
+                        <button onClick={handleBookingSubmit} className="btn btn-success">
+                            <Link to={`/booking?hotelId=${selectedHotel.hotelId}&restaurentId=${selectedRestaurant.restaurentId}&packageId=${selectedHotel.packageId}`}>
+                                Book Now
+                            </Link>
                         </button>
                     </div>
                 )}
+
+
+
             </div>
         </div>
     );

@@ -27,7 +27,7 @@ import PriceSort from './components/pricesort';
 import DestinationsList from './components/destinationlist';
 import PackagesByDestination from './components/packagesbydestination';
 import PostHotel from './components/posthotel';
-import Booking from './components/booking';
+import BookingForm from './components/booking';
 import PackageDetailsPage from './components/packagedetailspage';
 import HotelList from './components/hotellist';
 
@@ -68,7 +68,7 @@ function App() {
         <Route path="/hotellist/:destination" element={<HotelList/>} />
         <Route path="/post-hotel" element={<PostHotel/>} />
         <Route path="/travelagentsviewpackages" element={<TravelAgentPackageView/>}/>
-        <Route path="/booking" element={<Booking/>}/>
+        <Route path="/booking" element={<BookingForm/>}/>
        
 
       </Routes>
